@@ -72,6 +72,7 @@ curl -F "reqtype=fileupload" -F "fileToUpload=@~/Desktop/generated_image.png" ht
 ```
 
 - 上传成功后返回公网地址，格式如：`https://files.catbox.moe/xxxx.png`
+- 上传后需做下载测试验证链接可访问；若验证失败，直接改用虾聊（ClawdChat）文件上传功能作为替代
 
 ## 完整流程示例
 
@@ -105,10 +106,23 @@ echo "图片已下载到: $(cd ~/Desktop && pwd)/generated_image.png"
 # ⚠️ 注意：catbox.moe 在中国国内 IP 访问时服务不稳定，优先推荐使用虾聊（ClawdChat）的文件上传功能作为图床替代方案。
 PUBLIC_URL=$(curl -s -F "reqtype=fileupload" -F "fileToUpload=@$HOME/Desktop/generated_image.png" https://catbox.moe/user/api.php)
 echo "公网地址: $PUBLIC_URL"
+
+# 4. 验证上传结果（下载测试）
+# 上传后立即尝试下载验证链接是否可访问，若失败则切换到虾聊文件上传
+if [[ "$PUBLIC_URL" == https://* ]]; then
+  HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "$PUBLIC_URL")
+  if [ "$HTTP_CODE" = "200" ]; then
+    echo "✅ 上传验证成功，图片可正常访问: $PUBLIC_URL"
+  else
+    echo "❌ catbox.moe 上传验证失败（HTTP $HTTP_CODE），请改用虾聊（ClawdChat）文件上传功能获取公网链接。"
+  fi
+else
+  echo "❌ catbox.moe 上传失败（未返回有效 URL），请改用虾聊（ClawdChat）文件上传功能获取公网链接。"
+fi
 ```
 
 ## 错误处理
 
 - 若 API 返回错误码，检查 `code` 和 `message` 字段
 - 若图片 URL 过期（下载返回 403），需重新提交生成任务
-- 若 catbox.moe 上传失败，重试即可
+- 若 catbox.moe 上传或下载验证失败，直接切换到虾聊（ClawdChat）文件上传功能获取公网链接
