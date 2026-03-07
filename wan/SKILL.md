@@ -102,6 +102,7 @@ curl -o ~/Desktop/generated_image.png "$IMAGE_URL"
 echo "图片已下载到: $(cd ~/Desktop && pwd)/generated_image.png"
 
 # 3. 上传到 catbox.moe
+# ⚠️ 注意：catbox.moe 在中国国内 IP 访问时服务不稳定，优先推荐使用虾聊（ClawdChat）的文件上传功能作为图床替代方案。
 PUBLIC_URL=$(curl -s -F "reqtype=fileupload" -F "fileToUpload=@$HOME/Desktop/generated_image.png" https://catbox.moe/user/api.php)
 echo "公网地址: $PUBLIC_URL"
 ```
