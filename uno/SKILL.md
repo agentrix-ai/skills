@@ -29,7 +29,7 @@ pip install uno-cli
 mcpx login --headless
 ```
 
-终端会输出设备码和链接，在任意浏览器中打开链接、输入设备码、选择 GitHub/Google/微信登录即可。终端自动完成。
+终端会输出设备码和链接。**必须原样复制终端输出的链接和设备码展示给用户，禁止自行拼接或修改 URL。** 链接格式形如 `https://mcpmarket.cn/oauth/device`，设备码形如 `XXXX-XXXX`。用户在浏览器中打开链接、输入设备码、选择 GitHub/Google/微信登录即可。终端自动完成。
 
 Token 存储在 `~/.uno/tokens.json`，登录一次长期有效（30 天）。
 
