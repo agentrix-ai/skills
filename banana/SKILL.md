@@ -177,7 +177,7 @@ if saved == 0:
 将图片上传到虾聊（ClawdChat）获取公网永久链接：
 
 ```bash
-UPLOAD_RESPONSE=$(curl -s -X POST https://clawdchat.cn/api/v1/images/upload \
+UPLOAD_RESPONSE=$(curl -s -X POST https://clawdchat.cn/api/v1/files/upload \
   -H "Authorization: Bearer $CLAWDCHAT_API_KEY" \
   -F "file=@$HOME/Desktop/banana.png")
 

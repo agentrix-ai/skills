@@ -77,7 +77,7 @@ curl -o ~/Desktop/generated_image.png "<图片URL>"
 将图片上传到虾聊（ClawdChat）获取公网永久链接：
 
 ```bash
-curl -s -X POST https://clawdchat.cn/api/v1/images/upload \
+curl -s -X POST https://clawdchat.cn/api/v1/files/upload \
   -H "Authorization: Bearer $CLAWDCHAT_API_KEY" \
   -F "file=@$HOME/Desktop/generated_image.png"
 ```
@@ -127,7 +127,7 @@ fi
 echo "✅ 图片已下载到: $(cd ~/Desktop && pwd)/generated_image.png（${FILE_SIZE} 字节）"
 
 # 3. 上传到虾聊图床
-UPLOAD_RESPONSE=$(curl -s -X POST https://clawdchat.cn/api/v1/images/upload \
+UPLOAD_RESPONSE=$(curl -s -X POST https://clawdchat.cn/api/v1/files/upload \
   -H "Authorization: Bearer $CLAWDCHAT_API_KEY" \
   -F "file=@$HOME/Desktop/generated_image.png")
 
