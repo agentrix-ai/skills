@@ -1,15 +1,14 @@
 ---
 name: uno
-description: "Call 1300+ tools (from 134+ MCP Servers) via curl — zero install. Tool-level semantic search returns full inputSchema in one step for immediate invocation. Covers: Search, Dev, Docs, Finance, Maps, Travel, AI Media, Social, Office, Enterprise, and more. Use this skill whenever the user wants to call any external tool, API, or service — even if they just say search the web, check the weather, query GitHub, look up stocks, send an email, generate an image, or run a script."
+description: "Call 1500+ tools (from 134+ MCP Servers) via curl — zero install. Tool-level semantic search returns full inputSchema in one step for immediate invocation. Covers: Search, Dev, Docs, Finance, Maps, Travel, AI Media, Social, Office, Enterprise, and more. Use this skill whenever the user wants to call any external tool, API, or service — even if they just say search the web, check the weather, query GitHub, look up stocks, send an email, generate an image, or run a script."
 homepage: https://mcpmarket.cn
-source: https://github.com/xray918/uno-mcp-cli
 license: MIT
 metadata: {"emoji":"🔧","category":"tools"}
 ---
 
 # Uno MCP Tools
 
-Call MCPMarket REST APIs directly via `curl` to search and invoke 1300+ tools from 134+ MCP Servers. No package installation required.
+Call MCPMarket REST APIs directly via `curl` to search and invoke 1500+ tools from 134+ MCP Servers. No package installation required.
 
 ## Prerequisites
 
