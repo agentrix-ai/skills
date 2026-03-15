@@ -1,6 +1,6 @@
 ---
-name: uno-tools
-description: Call 134+ MCP Server tools via bash commands — no native tool_use config required. Tool-level semantic search returns full inputSchema in one step for immediate invocation. Covers: Search (DuckDuckGo/Brave/Exa/Tavily/Jina), Dev (GitHub/Context7/Figma/Sentry/Linear/Deepwiki), Docs (Markitdown/Fetch/Firecrawl/Word/Excel/PPT/Notion/arXiv), Visualization (AntV/ECharts), Finance (A-shares/Yahoo/Alpha Vantage/World Bank), Maps (Baidu/Google/Amap), Travel (Flights/Hotels/Weather/Tracking), AI Media (Image Gen/TTS/Vision), Social (Twitter/Discord/Instagram/LinkedIn/Reddit/HN/ClawdChat), Office (Gmail/Outlook/Calendar/GoogleDoc/Drive/Trello/Teams/Canva), Enterprise (Business Registry/Procurement/Risk Scanner), Sandbox (Python/Bash/Node).
+name: uno
+description: "Call 134+ MCP Server tools via bash commands — no native tool_use config required. Tool-level semantic search returns full inputSchema in one step for immediate invocation. Covers: Search (DuckDuckGo/Brave/Exa/Tavily/Jina), Dev (GitHub/Context7/Figma/Sentry/Linear/Deepwiki), Docs (Markitdown/Fetch/Firecrawl/Word/Excel/PPT/Notion/arXiv), Visualization (AntV/ECharts), Finance (A-shares/Yahoo/Alpha Vantage/World Bank), Maps (Baidu/Google/Amap), Travel (Flights/Hotels/Weather/Tracking), AI Media (Image Gen/TTS/Vision), Social (Twitter/Discord/Instagram/LinkedIn/Reddit/HN/ClawdChat), Office (Gmail/Outlook/Calendar/GoogleDoc/Drive/Trello/Teams/Canva), Enterprise (Business Registry/Procurement/Risk Scanner), Sandbox (Python/Bash/Node). Use this skill whenever the user wants to call any external tool, API, or service — even if they just say search the web, check the weather, query GitHub, look up stocks, send an email, generate an image, or run a script."
 homepage: https://mcpmarket.cn
 metadata: {"emoji":"🔧","category":"tools","gateway":"https://uno.mcpmarket.cn/mcp"}
 ---
@@ -11,17 +11,17 @@ Use `uno-cli` to access 134+ MCP Servers aggregated by the Uno gateway. Tool-lev
 
 ## Installation
 
-\`\`\`bash
+```bash
 uv tool install uno-cli
-\`\`\`
+```
 
 Verify: `uno-cli --help`. If `uv` is unavailable, use `pip3 install uno-cli`.
 
 ## Authentication
 
-\`\`\`bash
+```bash
 uno-cli login --headless
-\`\`\`
+```
 
 **Always copy the terminal output link and device code verbatim to display to the user — never construct or modify the URL yourself.** Token stored at `~/.uno/tokens.json`, valid for 30 days. Check status: `uno-cli status`
 
@@ -37,13 +37,13 @@ uno-cli login --headless
 
 ## Two-Step Invocation (Core Flow)
 
-\`\`\`bash
+```bash
 # Step 1: Search → get tools + inputSchema directly
 uno-cli tools call uno_search_servers '{"query": "weather forecast", "mode": "hybrid"}'
 
 # Step 2: Call (use the `tool` field from search result as server.tool_name)
 uno-cli tools call uno_call_tool '{"tool_name": "amap-maps.maps_weather", "arguments": {"city": "Beijing"}}'
-\`\`\`
+```
 
 ## uno_search_servers Parameters
 
@@ -71,7 +71,7 @@ Use cases:
 
 ## OAuth Flow (Cold Start — Rare)
 
-\`\`\`bash
+```bash
 # 1. Search discovers an uncached OAuth server
 uno-cli tools call uno_search_servers '{"query": "GitHub PR"}'
 # → uncached: [{server: "github", auth_required: true, action: "uno_discover_servers(...)"}]
@@ -86,7 +86,7 @@ uno-cli tools call uno_discover_servers '{"server_names": ["github"]}'
 
 # 4. Call
 uno-cli tools call uno_call_tool '{"tool_name": "github.search_repositories", "arguments": {...}}'
-\`\`\`
+```
 
 ## Available Categories
 
@@ -100,42 +100,42 @@ uno-cli tools call uno_call_tool '{"tool_name": "github.search_repositories", "a
 | Enterprise | 28 | enterprise-search, enterprise-risk-scanner |
 | Productivity | 14 | Gmail, Google Calendar, Trello, Canva |
 | Finance | 14 | eastmoney-stock-china, Alpha Vantage, yahoo-finance |
-| E-commerce | 8 | Ecommerce, McDonald's, express-tracking-china |
+| E-commerce | 8 | Ecommerce, express-tracking-china |
 
 ## Usage Examples
 
 ### Search and Call (Most Common)
 
-\`\`\`bash
+```bash
 # Search
 uno-cli tools call uno_search_servers '{"query": "Beijing weather", "mode": "hybrid"}'
 # Call (use the tool field from results)
 uno-cli tools call uno_call_tool '{"tool_name": "amap-maps.maps_weather", "arguments": {"city": "Beijing"}}'
-\`\`\`
+```
 
 ### Browse by Category
 
-\`\`\`bash
+```bash
 uno-cli tools call uno_search_servers '{"category": "Finance", "limit": 10}'
-\`\`\`
+```
 
 ### Run a Script in Sandbox
 
-\`\`\`bash
+```bash
 uno-cli tools call uno_execute_script '{"language": "python", "script": "print(42 * 2)"}'
-\`\`\`
+```
 
 ### Rate a Server After Use
 
-\`\`\`bash
+```bash
 uno-cli tools call uno_rate_server '{"server_name": "amap-maps", "rating": 4.5, "comment": "fast response"}'
-\`\`\`
+```
 
 ### JSON Output with jq
 
-\`\`\`bash
+```bash
 uno-cli --json tools call uno_call_tool '{"tool_name": "time.get_current_time", "arguments": {"timezone": "UTC"}}' | jq '.content[0].text | fromjson'
-\`\`\`
+```
 
 ## Workflow Recommendations
 
@@ -158,7 +158,7 @@ uno-cli --json tools call uno_call_tool '{"tool_name": "time.get_current_time", 
 
 ### v1.0.0
 
-- Initial release with 134+ MCP Server tools aggregated via single gateway
+- Initial release integrating 134+ MCP Server tools via a single aggregation gateway
 - 5 gateway commands: search, discover, call, script sandbox, rate
 - Tool-level semantic / hybrid / keyword search returning full inputSchema
 - Streamlined OAuth flow: auto-detects uncached servers, dedicated discover call triggers auth and caches results
